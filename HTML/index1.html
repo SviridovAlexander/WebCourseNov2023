@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+</head>
+<body>
+<h2>Application page</h2>
+<form action="handler.php" method="post">
+    <div>
+        <label>
+            Enter your first name <input type="text" name="clientFirstName">
+        </label>
+    </div>
+    <div>
+        <label>
+            Enter your second name <input type="text" name="clientSecondName">
+        </label>
+    </div>
+    <div>
+        Choose your gender:
+        <label>
+            <input type="radio" name="gender" value="male"> Male
+        </label>
+        <label>
+            <input type="radio" name="gender" value="female"> Female
+        </label>
+    </div>
+    <div>
+        <label> Level of education you have achieved:
+            <select name="education">
+                <option>None</option>
+                <option>Middle school</option>
+                <option>High school</option>
+                <option>Incomplete University Degree</option>
+                <option>University Degree</option>
+            </select>
+        </label>
+    </div>
+    Programming languages you want to learn:
+    <div>
+        <label>
+            <input type="checkbox" name="html">
+            Assembly language
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="python">
+            Python
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="java">
+            Java
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="c#">
+            C#
+        </label>
+    </div>
+    <div>
+        <label for="internetBrowser">Internet Browser(s) that you use:</label>
+        <br>
+        <select id="internetBrowser" name="internetBrowser" multiple size="5">
+            <option>Google Chrome</option>
+            <option>Firefox</option>
+            <option>Safari</option>
+            <option>Opera</option>
+            <option>Internet Explorer(Microsoft Edge)</option>
+        </select>
+    </div>
+    <div>
+        <label for="reasonsForApply">Why do you want to apply on course?</label>
+        <textarea id="reasonsForApply" name="reasonsForApply" maxlength="400"
+                  wrap="soft" placeholder="Enter text"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Send">
+    </div>
+</form>
+<a href="index2.html">Second page</a>
+</body>
+</html>
