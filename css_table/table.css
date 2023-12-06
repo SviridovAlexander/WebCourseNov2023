@@ -1,0 +1,41 @@
+.table {
+    max-width: 100%;
+    margin: 20px;
+    border: 1px solid #CECECE;
+    border-collapse: collapse;
+    font-family: Calibri, sans-serif;
+    text-align: left;
+    font-size: 22px;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #EDEEEE;
+}
+
+.table th,
+.table td {
+    padding: 14px 8px;
+}
+
+.table th {
+    background: #3598DB;
+    color: #FFF;
+    border: 1px solid #DDD;
+}
+
+.table td {
+    border: 1px solid #DDD;
+    text-align: left;
+}
+
+.first_name_column, .last_name_column {
+    width: 160px;
+}
+
+.job_title_column {
+    width: 290px;
+}
+
+.twitter_column {
+    width: 181px;
+}
