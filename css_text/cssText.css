@@ -1,34 +1,33 @@
 .course_description {
     color: #71635C;
     padding: 12px 15px;
-    font-family: "Arial", sans-serif;
-    max-width: 900px;
+    font-family: Arial, sans-serif;
+    max-width: 725px;
     background-color: #FBEED6;
 }
 
 .course_description_header {
     margin-bottom: 14px;
-    font-size: 32px;
+    font-size: 29px;
     font-weight: 500;
 }
 
-.paragraph_separator {
+.course_detail {
     margin-top: 12px;
-    font-size: 19px;
+    font-size: 16px;
 }
 
 .blue_text {
     color: #5788B0;
     font-weight: bold;
-    font-size: 19px;
+    font-size: 16px;
 }
 
-.simple_paragraph {
+.content_paragraph p {
     padding-top: 12px;
     text-indent: 15px;
-    font-size: 18px;
-    font-family: "Arial", sans-serif;
+    font-size: 14px;
     text-align: justify;
     word-spacing: 5px;
-    line-height: 23px;
+    line-height: 21px;
 }
