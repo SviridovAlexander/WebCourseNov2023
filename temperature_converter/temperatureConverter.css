@@ -1,0 +1,48 @@
+body {
+    background-color: #282626;
+}
+
+.converter-page {
+    text-align: center;
+    font-size: 22px;
+    padding: 20px;
+    color: #fff;
+}
+
+.converter-page > h1 {
+    font-size: 30px;
+}
+
+.converter-page > * {
+    margin: 30px;
+}
+
+.converter-page input {
+    height: 30px;
+    width: 500px;
+    font-size: 20px;
+}
+
+.button-block {
+    width: 150px;
+    margin: auto;
+}
+
+.converter-page button {
+    margin-top: 20px;
+    height: 35px;
+    width: 100%;
+    font-size: 22px;
+}
+
+.converter-page button:hover {
+    cursor: pointer;
+}
+
+.converter-page .error-message {
+    color: #f00;
+}
+
+.converter-page .input-field-error{
+    border-color: #f00;
+}
