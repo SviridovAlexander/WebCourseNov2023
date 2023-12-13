@@ -4,14 +4,13 @@
         let maxCitiesCountCountries = [];
 
         countries.forEach(function (country) {
-                if (country.cities.length > maxCitiesCount) {
-                    maxCitiesCount = country.cities.length;
-                    maxCitiesCountCountries = [country];
-                } else if (country.cities.length === maxCitiesCount) {
-                    maxCitiesCountCountries.push(country);
-                }
+            if (country.cities.length > maxCitiesCount) {
+                maxCitiesCount = country.cities.length;
+                maxCitiesCountCountries = [country];
+            } else if (country.cities.length === maxCitiesCount) {
+                maxCitiesCountCountries.push(country);
             }
-        )
+        });
 
         return maxCitiesCountCountries;
     }
@@ -20,40 +19,40 @@
         let countriesPopulations = {};
 
         countries.forEach(function (country) {
-            countriesPopulations[country.countryName] = country.cities.reduce(
-                (currentPopulationSum, currentCity) => currentPopulationSum + currentCity.population, 0);
-        })
+            countriesPopulations[country.name] = country.cities.reduce(
+                (populationSum, city) => populationSum + city.population, 0);
+        });
 
         return countriesPopulations;
     }
 
-    let countries = [
+    const countries = [
         {
-            countryName: "United States",
+            name: "United States",
             cities: [
-                {cityName: "New York", population: 8335897},
-                {cityName: "Loss Angeles", population: 3822238},
-                {cityName: "Chicago", population: 2665039},
-                {cityName: "Dallas", population: 1300000}
+                {name: "New York", population: 8335897},
+                {name: "Loss Angeles", population: 3822238},
+                {name: "Chicago", population: 2665039},
+                {name: "Dallas", population: 1300000}
             ]
         },
         {
-            countryName: "France",
+            name: "France",
             cities: [
-                {cityName: "Paris", population: 2181370},
-                {cityName: "Lyon", population: 472715}
+                {name: "Paris", population: 2181370},
+                {name: "Lyon", population: 472715}
             ]
         },
         {
-            countryName: "Germany",
+            name: "Germany",
             cities: [
-                {cityName: "Berlin", population: 3677000},
-                {cityName: "Hamburg", population: 3677472},
-                {cityName: "Munich", population: 1486708},
-                {cityName: "Stuttgart", population: 665455}
+                {name: "Berlin", population: 3677000},
+                {name: "Hamburg", population: 3677472},
+                {name: "Munich", population: 1486708},
+                {name: "Stuttgart", population: 665455}
             ]
         }
-    ]
+    ];
 
     console.log(getMaxCitiesCountCountries(countries));
     console.log(getCountriesPopulations(countries));
