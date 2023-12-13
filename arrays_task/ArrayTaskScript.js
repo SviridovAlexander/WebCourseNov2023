@@ -13,11 +13,13 @@
 
     function calculateEvenNumbersSum(array) {
         return array
-            .filter((e) => e % 2 === 0)
-            .reduce((currentSum, currentNumber) => currentSum + currentNumber, 0);
+            .filter(number => number % 2 === 0)
+            .reduce((sum, number) => sum + number, 0);
     }
 
-    function fillArrayWithNumbers(array, startNumber, finishNumber) {
+    function getArrayWithNumbersFromTo(startNumber, finishNumber) {
+        const array = [];
+
         for (let i = startNumber; i <= finishNumber; i++) {
             array.push(i);
         }
@@ -25,10 +27,10 @@
         return array;
     }
 
-    function getEvenNumbersSquaresList(array) {
+    function getEvenNumbersSquaresArray(array) {
         return array
-            .filter((e) => e % 2 === 0)
-            .map((evenNumber) => evenNumber * evenNumber);
+            .filter(number => number % 2 === 0)
+            .map(number => number * number);
     }
 
     const numbers = [1, 5, 10, -20, 30, 6, 7, 100, 13, 75];
@@ -37,9 +39,5 @@
     console.log(getFirstElements(numbers, 5));
     console.log(getLastElements(numbers, 5));
     console.log(calculateEvenNumbersSum(numbers));
-
-    const numbersFrom1To100 = [];
-    fillArrayWithNumbers(numbersFrom1To100, 1, 100);
-
-    console.log(getEvenNumbersSquaresList(numbersFrom1To100));
+    console.log(getEvenNumbersSquaresArray(getArrayWithNumbersFromTo(1, 100)));
 })();
