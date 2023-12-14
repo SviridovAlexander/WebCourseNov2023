@@ -14,7 +14,7 @@
 
 .table th,
 .table td {
-    padding: 14px 8px;
+    padding: 14px 10px;
 }
 
 .table th {
@@ -29,13 +29,13 @@
 }
 
 .first_name_column, .last_name_column {
-    width: 160px;
+    width: 154px;
 }
 
 .job_title_column {
-    width: 290px;
+    width: 288px;
 }
 
 .twitter_column {
-    width: 181px;
+    width: 180px;
 }
