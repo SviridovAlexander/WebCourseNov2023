@@ -1,0 +1,142 @@
+body {
+    color: #ffffff;
+    background-color: #343333;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Arial", serif;
+}
+
+.add-contact-form{
+    text-align: center;
+}
+
+.form-field{
+    width: 160px;
+    padding: 4px 3px;
+    margin: 8px 5px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.phone-number-block{
+    margin-left: -21px;
+}
+
+.header{
+    margin: 20px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.phonebook-table-block table {
+    border-collapse: collapse;
+    border: 1px solid #cfcfcf;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 16px;
+    margin: auto;
+}
+
+.phonebook-table-block td, .phonebook-table-block th {
+    border: 1px solid #cfcfcf;
+    padding: 10px 10px;
+}
+
+.phonebook-table-block{
+    margin-bottom: 55px;
+}
+
+#add-contact{
+    width: 120px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.phonebook-filter {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+button{
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.phonebook-filter input[type="text"] {
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.phonebook-filter button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#apply-filter {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.edit-contact, .save-contact{
+    background-color: #4CAF50;
+    color: white;
+}
+
+#reset-filter, .delete-contact {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    margin-left: 5px;
+}
+
+.phone-number-column{
+    width: 210px;
+}
+
+.actions-column{
+    width: 130px;
+}
+
+.first-name-column, .last-name-column{
+    width: 195px;
+}
+
+.phonebook-table-block tr{
+    text-align: center;
+}
+
+#confirmation-dialog{
+    display: none;
+}
+
+tr:nth-child(even) {
+    background-color: #444343;
+}
+
+th {
+    background-color: #1d6c93;
+    line-break: auto;
+}
+
+td{
+    word-wrap: anywhere;
+    white-space: normal;
+}

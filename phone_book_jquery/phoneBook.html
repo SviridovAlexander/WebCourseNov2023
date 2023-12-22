@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Book</title>
+    <link rel="stylesheet" href="libs/jquery-ui-1.13.2/jquery-ui.css">
+    <link rel="stylesheet" href="cssReset.css">
+    <link rel="stylesheet" href="phoneBook.css">
+    <script defer src="libs/jquery-3.7.1.js"></script>
+    <script defer src="libs/jquery-ui-1.13.2/jquery-ui.js"></script>
+    <script defer src="phoneBook.js"></script>
+</head>
+<body>
+<h1 class="header">Phone Book</h1>
+<div>
+    <form class="add-contact-form">
+        <div>
+            <label>
+                Last Name: <input type="text" id="last-name" class="form-field" tabindex="1">
+            </label>
+        </div>
+        <div>
+            <label>
+                First Name: <input type="text" id="first-name" class="form-field" tabindex="2">
+            </label>
+        </div>
+        <div>
+            <label class="phone-number-block">
+                Phone Number:<input type="text" id="phone-number" class="form-field" tabindex="3">
+            </label>
+        </div>
+        <button id="add-contact">Add Contact</button>
+    </form>
+</div>
+<hr>
+<div class="phonebook-table-block">
+    <div class="phonebook-filter">
+        <label for="filter">Filter:</label>
+        <input type="text" id="filter"/>
+        <button id="apply-filter">Apply Filter</button>
+        <button id="reset-filter">Reset Filter</button>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="selectAllRows"/></th>
+            <th>#</th>
+            <th class="last-name-column">Last Name</th>
+            <th class="first-name-column">First Name</th>
+            <th class="phone-number-column">Phone Number</th>
+            <th class="actions-column">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="contacts-table-body">
+
+        </tbody>
+    </table>
+</div>
+<div id="confirmation-dialog" title="Confirmation">
+    <p>Are you sure you want to delete this contact?</p>
+</div>
+</body>
+</html>
