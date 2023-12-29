@@ -3,7 +3,7 @@
         let maxCitiesCount = 0;
         let maxCitiesCountCountries = [];
 
-        countries.forEach(function (country) {
+        countries.forEach(country => {
             if (country.cities.length > maxCitiesCount) {
                 maxCitiesCount = country.cities.length;
                 maxCitiesCountCountries = [country];
@@ -16,11 +16,11 @@
     }
 
     function getCountriesPopulations(countries) {
-        let countriesPopulations = {};
+        const countriesPopulations = {};
 
-        countries.forEach(function (country) {
-            countriesPopulations[country.name] = country.cities.reduce(
-                (populationSum, city) => populationSum + city.population, 0);
+        countries.forEach(country => {
+            countriesPopulations[country.name] = country.cities
+                .reduce((populationSum, city) => populationSum + city.population, 0);
         });
 
         return countriesPopulations;
@@ -31,7 +31,7 @@
             name: "United States",
             cities: [
                 {name: "New York", population: 8335897},
-                {name: "Loss Angeles", population: 3822238},
+                {name: "Los Angeles", population: 3822238},
                 {name: "Chicago", population: 2665039},
                 {name: "Dallas", population: 1300000}
             ]
@@ -54,6 +54,6 @@
         }
     ];
 
-    console.log(getMaxCitiesCountCountries(countries));
-    console.log(getCountriesPopulations(countries));
+    console.log("Countries with the Maximum Number of Cities:",getMaxCitiesCountCountries(countries));
+    console.log("Populations of Countries:",getCountriesPopulations(countries));
 })();
