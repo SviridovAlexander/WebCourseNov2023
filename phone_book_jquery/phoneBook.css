@@ -8,11 +8,11 @@ body {
     font-family: "Arial", serif;
 }
 
-.add-contact-form{
+.add-contact-form {
     text-align: center;
 }
 
-.form-field{
+.form-field {
     width: 160px;
     padding: 4px 3px;
     margin: 8px 5px 10px;
@@ -21,11 +21,11 @@ body {
     border-radius: 4px;
 }
 
-.phone-number-block{
+.phone-number-block {
     margin-left: -21px;
 }
 
-.header{
+.header {
     margin: 20px;
     font-size: 40px;
     text-align: center;
@@ -49,11 +49,11 @@ body {
     padding: 10px 10px;
 }
 
-.phonebook-table-block{
+.phonebook-table-block {
     margin-bottom: 55px;
 }
 
-#add-contact{
+#add-contact {
     width: 120px;
     background-color: #04AA6D;
     color: white;
@@ -70,7 +70,7 @@ body {
     margin-top: 20px;
 }
 
-button{
+button {
     border-radius: 4px;
     cursor: pointer;
     border: none;
@@ -95,35 +95,35 @@ button{
     color: white;
 }
 
-.edit-contact, .save-contact{
+.edit-contact, .save-contact {
     background-color: #4CAF50;
     color: white;
 }
 
-#reset-filter, .delete-contact {
+#reset-filter, .delete-contact, .cancel-edit {
     background-color: #f44336;
     color: white;
     border: none;
     margin-left: 5px;
 }
 
-.phone-number-column{
+.phone-number-column {
     width: 210px;
 }
 
-.actions-column{
+.actions-column {
     width: 130px;
 }
 
-.first-name-column, .last-name-column{
+.first-name-column, .last-name-column {
     width: 195px;
 }
 
-.phonebook-table-block tr{
+.phonebook-table-block tr {
     text-align: center;
 }
 
-#confirmation-dialog{
+#confirmation-dialog {
     display: none;
 }
 
@@ -136,7 +136,11 @@ th {
     line-break: auto;
 }
 
-td{
+td {
     word-wrap: anywhere;
     white-space: normal;
+}
+
+.validation-message {
+    color: #f44336;
 }

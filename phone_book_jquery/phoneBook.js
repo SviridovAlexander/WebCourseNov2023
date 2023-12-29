@@ -114,14 +114,14 @@ $(function () {
                 deleteRows(selectedRows);
                 selectedRows = [];
                 updateRowIndexes();
+            } else {
+                const deletedRow = $(`#row-index-${index}`);
+                const changedRows = deletedRow.nextAll();
+                deletedRow.remove();
+                contactsCount--;
+                contacts.splice(index, 1);
+                updateRowIndexes(changedRows);
             }
-
-            const deletedRow = $(`#row-index-${index}`);
-            const changedRows = deletedRow.nextAll();
-            deletedRow.remove();
-            contactsCount--;
-            contacts.splice(index, 1);
-            updateRowIndexes(changedRows);
         });
     });
 
