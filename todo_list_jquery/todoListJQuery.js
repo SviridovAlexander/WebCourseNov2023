@@ -31,7 +31,7 @@ $(function () {
                 newTodo.html(`<input type="text" class="edit-text-field">
                     <button class="cancel-button" type="button">Cancel</button>
                     <button class="save-button" type="button">Save</button>
-                    <div class="edit-error-massage-block"></div>
+                    <div class="edit-error-message-block"></div>
                     <div class="error-message">Need to insert text</div>`);
 
 
@@ -42,24 +42,33 @@ $(function () {
                     setViewMode();
                 });
 
-                newTodo.find(".save-button").click(function () {
+                $(".save-button").on("click", function () {
+                    saveChanges();
+                });
+
+                editTextField.on("keyup", function (event) {
+                    if (event.key === "Enter") {
+                        saveChanges();
+                    }
+                });
+
+                function saveChanges() {
                     const changedTodoText = editTextField.val().trim();
 
                     if (changedTodoText.length === 0) {
-                        newTodo.find(".edit-error-massage-block").addClass("invalid");
-                        newTodo.find(".edit-text-field").addClass("invalid");
+                        $(".edit-error-message-block").addClass("invalid");
+                        $(".edit-text-field").addClass("invalid");
                         return;
                     }
 
                     newTodoText = changedTodoText;
                     setViewMode();
-                })
+                }
             });
         }
+
         setViewMode();
-
         todoList.append(newTodo);
-
         newTodoTextField.val("");
     });
 });

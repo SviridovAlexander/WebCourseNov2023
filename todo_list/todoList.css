@@ -2,15 +2,21 @@ body {
     background-color: #2f2e2e;
 }
 
-.header{
+.header {
     font-size: 30px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.add-todo-page {
     text-align: center;
     color: #fff;
 }
 
-.add-todo-page{
-    text-align: center;
-    color: #fff;
+.add-todo-form {
+    margin-bottom: 10px;
 }
 
 .add-todo-page .add-todo-form > * {
@@ -35,22 +41,48 @@ body {
     padding-left: 0;
 }
 
-.add-todo-page .add-button{
-
-}
-
-.add-todo-page .delete-button {
-    margin-left: 5px;
-}
-
-.add-todo-page .edit-button {
-    margin-left: 5px
-}
-
-.add-todo-page .todo-item + .todo-item{
+.add-todo-page .todo-item + .todo-item {
     margin-top: 10px;
 }
 
-.add-todo-page .hidden-block{
+.add-todo-page .hidden-block {
     display: none;
+}
+
+.add-todo-page .delete-button,
+.add-todo-page .edit-button,
+.add-todo-page .cancel-button,
+.add-todo-page .save-button {
+    margin-left: 10px;
+    margin-bottom: 1px;
+}
+
+.add-todo-page .todo-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+.add-todo-page .todo-item-text,
+.add-todo-page .edit-text-field {
+    margin-right: auto;
+    word-wrap: anywhere;
+}
+
+.add-todo-page .todo-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #1a865d;
+}
+
+.add-todo-page .error-message {
+    margin-left: 1px;
+    position: absolute;
+    margin-bottom: -40px;
+}
+
+.add-todo-page .add-todo-form {
+    margin-bottom: 30px;
 }
