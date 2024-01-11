@@ -11,7 +11,6 @@ body {
 }
 
 .add-todo-page {
-    text-align: center;
     color: #fff;
 }
 
@@ -60,8 +59,6 @@ body {
 .add-todo-page .todo-list {
     display: flex;
     flex-direction: column;
-    max-width: 50%;
-    margin: 0 auto;
 }
 
 .add-todo-page .todo-item-text,
@@ -78,11 +75,27 @@ body {
 }
 
 .add-todo-page .error-message {
-    margin-left: 1px;
+    margin-left: 2px;
     position: absolute;
-    margin-bottom: -40px;
+    margin-top: 40px;
 }
 
 .add-todo-page .add-todo-form {
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-text-field {
+    width: 100%;
+}
+
+.new-todo-text-field {
+    width: 100%;
+    margin-right: 5px;
+}
+
+.todo-list-block {
+    max-width: 70%;
+    margin: 0 auto;
 }

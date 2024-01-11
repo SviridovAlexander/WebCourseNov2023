@@ -46,7 +46,7 @@ $(function () {
                     saveChanges();
                 });
 
-                editTextField.on("keyup", function (event) {
+                $(editTextField).keyup(function (event) {
                     if (event.key === "Enter") {
                         saveChanges();
                     }
