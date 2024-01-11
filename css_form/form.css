@@ -69,6 +69,6 @@
     background-color: #3996D2;
 }
 
-::placeholder {
-    color: #999999;
+.form ::placeholder {
+    color: #999;
 }
