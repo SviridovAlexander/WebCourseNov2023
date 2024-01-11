@@ -4,17 +4,23 @@ $(function () {
     let contactsCount = 0;
     let contactsTable = $(".contacts-table-body");
 
+    function escapeHTML(html) {
+        const div = document.createElement("div");
+        div.innerText = html;
+        return div.innerHTML;
+    }
+
     function validateForm() {
         let isValid = true;
         const fields = ["last-name", "first-name", "phone-number"];
 
         for (const field of fields) {
-            let currentField = $("#" + field);
+            const currentField = $("#" + field);
             const value = currentField.val().trim();
 
             if (value === "") {
                 currentField.addClass("error");
-                $(`#${field}`).after(`<p class="validation-message">Please fill out the field.</p>`);
+                currentField.after(`<p class="validation-message">Please fill out the field.</p>`);
                 isValid = false;
             }
         }
@@ -25,28 +31,32 @@ $(function () {
     function resetForm() {
         $("#lastName, #firstName, #phoneNumber").val("");
         $("form input").removeClass("error");
-        $(".validation-message").remove();
+        $(".add-contact-form .validation-message").remove();
     }
 
     function updateRowIndexes() {
         const remainingRows = contactsTable.children();
-        for (let i = 0; i < remainingRows.length; i++) {
-            const currentRow = $(remainingRows[i]);
-            const newIndex = i;
 
-            currentRow.find(".contact-number").text(newIndex + 1);
-            currentRow.attr("id", `row-index-${newIndex}`);
-            currentRow.find("[data-index]").attr("data-index", newIndex);
-        }
+        remainingRows.each(function (i) {
+            const currentRow = $(this);
+
+            currentRow.find(".contact-number").text(i + 1);
+            currentRow.prop("id", `row-index-${i}`);
+            currentRow.find("[data-index]").attr("data-index", i);
+        });
     }
+
 
     function deleteRows(indices) {
         for (let i = indices.length - 1; i >= 0; i--) {
             const selectedIndex = indices[i];
             const selectedRow = $(`#row-index-${selectedIndex}`);
-            selectedRow.remove();
-            delete contacts[selectedIndex];
-            contactsCount--;
+
+            if (selectedRow.is(":visible")) {
+                selectedRow.remove();
+                delete contacts[selectedIndex];
+                contactsCount--;
+            }
         }
 
         contacts = contacts.filter(Boolean);
@@ -68,20 +78,21 @@ $(function () {
                 return;
             }
 
-            contactsCount++;
-            const row = `<tr id="row-index-${contactsCount - 1}">
-                <td><input type="checkbox" class="selectRow" data-index="${contactsCount - 1}" /></td>
-                <td class="contact-number">${contactsCount}</td>
-                <td>${lastName}</td>
-                <td>${firstName}</td>
-                <td>${phoneNumber}</td>
+
+            const row = `<tr id="row-index-${contactsCount}">
+                <td><input type="checkbox" class="select-row" data-index="${contactsCount}" /></td>
+                <td class="contact-number">${contactsCount + 1}</td>
+                <td>${escapeHTML(lastName)}</td>
+                <td>${escapeHTML(firstName)}</td>
+                <td>${escapeHTML(phoneNumber)}</td>
                 <td>
-                    <button class="delete-contact" data-index="${contactsCount - 1}">Delete</button>
-                    <button class="edit-contact" data-index="${contactsCount - 1}">Edit</button>
+                    <button class="delete-contact" data-index="${contactsCount}">Delete</button>
+                    <button class="edit-contact" data-index="${contactsCount}">Edit</button>
                 </td>
             </tr>`;
 
-            //$("#last-name, #first-name, #phone-number").val("");
+            contactsCount++;
+            $("#last-name, #first-name, #phone-number").val("");
 
             contactsTable.append(row);
             contacts.push({lastName, firstName, phoneNumber});
@@ -110,19 +121,27 @@ $(function () {
         const index = $(this).data("index");
 
         showConfirmationDialog(function () {
-            if (selectedRows.length > 0) {
+            const deletedRow = $(`#row-index-${index}`);
+            deletedRow.remove();
+            contactsCount--;
+            contacts.splice(index, 1);
+            selectedRows = selectedRows
+                .filter(item => item !== index)
+                .map(function (value) {
+                    return value - 1;
+                });
+            updateRowIndexes();
+        });
+    });
+
+    $(document).on("click", ".delete-selected-contacts-button", function () {
+        if (selectedRows.length > 0) {
+            showConfirmationDialog(function () {
                 deleteRows(selectedRows);
                 selectedRows = [];
                 updateRowIndexes();
-            } else {
-                const deletedRow = $(`#row-index-${index}`);
-                const changedRows = deletedRow.nextAll();
-                deletedRow.remove();
-                contactsCount--;
-                contacts.splice(index, 1);
-                updateRowIndexes(changedRows);
-            }
-        });
+            });
+        }
     });
 
     $(document).on("click", ".edit-contact", function () {
@@ -131,7 +150,7 @@ $(function () {
         const contactToEdit = contacts[editIndex];
         const editedRow = `
             <tr id="row-index-${editIndex}">
-                <td><input type="checkbox" class="selectRow" data-index="${editIndex}" /></td>
+                <td><input type="checkbox" class="select-row" data-index="${editIndex}" /></td>
                 <td class="contact-number">${editIndex + 1}</td>
                 <td><input type="text" class="edit-field" id="edit-last-name" value="${contactToEdit.lastName}" /></td>
                 <td><input type="text" class="edit-field" id="edit-first-name" value="${contactToEdit.firstName}" /></td>
@@ -149,7 +168,7 @@ $(function () {
         const index = $(this).data("index");
         const originalRow = `
             <tr id="row-index-${index}">
-                <td><input type="checkbox" class="selectRow" data-index="${index}" /></td>
+                <td><input type="checkbox" class="select-row" data-index="${index}" /></td>
                 <td class="contact-number">${index + 1}</td>
                 <td>${contacts[index].lastName}</td>
                 <td>${contacts[index].firstName}</td>
@@ -170,7 +189,7 @@ $(function () {
         const phoneNumber = $("#edit-phone-number").val().trim();
         const editFieldBlock = $(".edit-field");
 
-        $(".validation-message").remove();
+        $(".contacts-table-body .validation-message").remove();
         editFieldBlock.removeClass("error");
 
         if (!lastName || !firstName || !phoneNumber) {
@@ -187,11 +206,11 @@ $(function () {
 
         const editedRow = `
             <tr id="row-index-${index}">
-                <td><input type="checkbox" class="selectRow" data-index="${index}" /></td>
+                <td><input type="checkbox" class="select-row" data-index="${index}" /></td>
                 <td class="contact-number">${index + 1}</td>
-                <td>${lastName}</td>
-                <td>${firstName}</td>
-                <td>${phoneNumber}</td>
+                <td>${escapeHTML(lastName)}</td>
+                <td>${escapeHTML(firstName)}</td>
+                <td>${escapeHTML(phoneNumber)}</td>
                 <td>
                     <button class="delete-contact" data-index="${index}">Delete</button>
                     <button class="edit-contact" data-index="${index}">Edit</button>
@@ -202,7 +221,7 @@ $(function () {
         contacts[index] = {lastName, firstName, phoneNumber};
     });
 
-    $(document).on("change", ".selectRow", function () {
+    $(document).on("change", ".select-row", function () {
         const index = $(this).data("index");
 
         if ($(this).prop("checked")) {
@@ -212,28 +231,45 @@ $(function () {
         }
     });
 
-    $("#selectAllRows").on("change", function () {
+    $("#select-all-rows").change(function () {
         const isChecked = $(this).prop("checked");
-        $(".selectRow").prop("checked", isChecked);
+        $(".select-row").prop("checked", isChecked);
         selectedRows = isChecked ? Array.from({length: contacts.length}, (_, i) => i) : [];
     });
 
-    $("#apply-filter").on("click", function applyFilter() {
+    $("#apply-filter").click(function () {
         const filterText = $("#filter").val().toLowerCase();
-        contactsTable.find('tr').show();
-        if (filterText !== "") {
-            contactsTable.find('tr').each(function () {
-                const row = $(this);
-                const rowText = row.text().toLowerCase();
-                if (rowText.indexOf(filterText) === -1) {
-                    row.hide();
+        const contactsTable = $(".contacts-table-body");
+
+        contactsTable.find("tr").each(function () {
+            const row = $(this);
+            const rowText = row.text().toLowerCase();
+            const isRowContainsFilteredText = rowText.includes(filterText);
+
+            if (isRowContainsFilteredText) {
+                row.show();
+                return;
+            }
+
+            const isRowBeingEdited = row.find(".edit-field").length > 0;
+
+            if (isRowBeingEdited) {
+                const editedValuesMatchFilter = row.find(".edit-field").filter(function () {
+                    return $(this).val().toLowerCase().includes(filterText);
+                }).length > 0;
+
+                if (editedValuesMatchFilter) {
+                    row.show();
+                    return;
                 }
-            });
-        }
+            }
+
+            row.hide();
+        });
     });
 
-    $("#reset-filter").on("click", function clearFilter() {
+    $("#reset-filter").click(function () {
         $("#filter").val("");
-        contactsTable.find('tr').show();
+        contactsTable.find("tr").show();
     });
 });

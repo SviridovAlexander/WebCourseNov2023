@@ -1,11 +1,12 @@
 body {
     color: #ffffff;
     background-color: #343333;
+    font-family: "Arial", serif;
+    font-size: 15px;
 }
 
 * {
     box-sizing: border-box;
-    font-family: "Arial", serif;
 }
 
 .add-contact-form {
@@ -53,10 +54,10 @@ body {
     margin-bottom: 55px;
 }
 
-#add-contact {
+.add-contact-button {
     width: 120px;
     background-color: #04AA6D;
-    color: white;
+    color: #ffffff;
     padding: 8px 20px;
     margin: 8px 0;
     border: none;
@@ -66,7 +67,7 @@ body {
 
 .phonebook-filter {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     margin-top: 20px;
 }
 
@@ -90,19 +91,19 @@ button {
     cursor: pointer;
 }
 
-#apply-filter {
+.apply-filter-button {
     background-color: #4CAF50;
-    color: white;
+    color: #ffffff;
 }
 
 .edit-contact, .save-contact {
     background-color: #4CAF50;
-    color: white;
+    color: #ffffff;
 }
 
-#reset-filter, .delete-contact, .cancel-edit {
+.reset-filter-button, .delete-contact, .cancel-edit, .delete-selected-contacts-button {
     background-color: #f44336;
-    color: white;
+    color: #ffffff;
     border: none;
     margin-left: 5px;
 }
@@ -123,24 +124,33 @@ button {
     text-align: center;
 }
 
-#confirmation-dialog {
+.confirmation-dialog-window {
     display: none;
 }
 
-tr:nth-child(even) {
+.contact-table tr:nth-child(even) {
     background-color: #444343;
 }
 
-th {
+.contact-table th {
     background-color: #1d6c93;
     line-break: auto;
 }
 
-td {
+.contact-table td {
     word-wrap: anywhere;
     white-space: normal;
 }
 
 .validation-message {
     color: #f44336;
+}
+
+.delete-selected-contacts-button {
+    padding: 5px;
+}
+
+.delete-selected-contacts-block {
+    text-align: center;
+    margin-bottom: 10px;
 }
