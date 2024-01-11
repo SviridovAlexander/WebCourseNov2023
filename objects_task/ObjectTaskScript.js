@@ -54,6 +54,6 @@
         }
     ];
 
-    console.log("Countries with the Maximum Number of Cities:",getMaxCitiesCountCountries(countries));
-    console.log("Populations of Countries:",getCountriesPopulations(countries));
+    console.log("Countries with the Maximum Number of Cities:", getMaxCitiesCountCountries(countries));
+    console.log("Populations of Countries:", getCountriesPopulations(countries));
 })();
