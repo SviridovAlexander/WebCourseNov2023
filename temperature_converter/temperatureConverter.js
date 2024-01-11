@@ -1,43 +1,44 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const inputTextField = document.getElementById("temperature-celsius-input-text-field");
+    const celsiusTemperatureTextField = document.getElementById("celsius-temperature-text-field");
     const outputTextBlock = document.querySelector(".output-text-block");
+
+    function convertCelsiusToKelvin(celsius) {
+        return celsius + 273.15;
+    }
+
+    function convertCelsiusToFahrenheit(celsius) {
+        return celsius * 1.8 + 32;
+    }
 
     document.getElementById("converter-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const temperatureCelsiusInputString = inputTextField.value;
+        const celsiusTemperatureString = celsiusTemperatureTextField.value;
 
-        if (temperatureCelsiusInputString.length === 0) {
+        if (celsiusTemperatureString.length === 0) {
             outputTextBlock.textContent = "Please fill in the field";
             outputTextBlock.classList.add("error-message");
-            inputTextField.classList.add("input-field-error");
+            celsiusTemperatureTextField.classList.add("input-field-error");
             return;
         }
 
-        if (isNaN(parseFloat(temperatureCelsiusInputString))) {
+        if (isNaN(parseFloat(celsiusTemperatureString))) {
             outputTextBlock.textContent = "Incorrect input";
             outputTextBlock.classList.add("error-message");
-            inputTextField.classList.add("input-field-error");
+            celsiusTemperatureTextField.classList.add("input-field-error");
             return;
         }
 
-        inputTextField.value = "";
+        celsiusTemperatureTextField.value = "";
         outputTextBlock.classList.remove("error-message");
-        inputTextField.classList.remove("input-field-error");
+        celsiusTemperatureTextField.classList.remove("input-field-error");
 
-        outputTextBlock.textContent = temperatureCelsiusInputString +
+        const celsiusTemperature = parseFloat(celsiusTemperatureString);
+        outputTextBlock.textContent = celsiusTemperatureString +
             " °Celsius = " +
-            celsiusToKelvin(parseFloat(temperatureCelsiusInputString)) +
+            convertCelsiusToKelvin(celsiusTemperature).toFixed(3) +
             " °Kelvin = " +
-            celsiusToFahrenheit(parseFloat(temperatureCelsiusInputString)) +
+            convertCelsiusToFahrenheit(celsiusTemperature).toFixed(3) +
             " °Fahrenheit";
     });
-
-    function celsiusToKelvin(celsius) {
-        return (celsius + 273.15).toFixed(3);
-    }
-
-    function celsiusToFahrenheit(celsius) {
-        return (celsius * 1.8 + 32).toFixed(3);
-    }
 });
