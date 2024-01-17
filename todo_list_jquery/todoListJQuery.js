@@ -16,7 +16,6 @@ $(function () {
         const newTodo = $("<li>").addClass("todo-item");
 
         function setViewMode() {
-
             newTodo.html(`<span class="todo-item-text"></span>
                     <button class="delete-button" type="button">Delete</button>
                     <button class="edit-button" type="button">Edit</button>`);
@@ -34,7 +33,6 @@ $(function () {
                     <div class="edit-error-message-block"></div>
                     <div class="error-message">Need to insert text</div>`);
 
-
                 const editTextField = newTodo.find(".edit-text-field");
                 editTextField.val(newTodoText);
 
@@ -42,7 +40,7 @@ $(function () {
                     setViewMode();
                 });
 
-                $(".save-button").on("click", function () {
+                $(".save-button").click(function () {
                     saveChanges();
                 });
 
