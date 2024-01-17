@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         const celsiusTemperatureString = celsiusTemperatureTextField.value;
+        const celsiusTemperature = parseFloat(celsiusTemperatureString);
 
         if (celsiusTemperatureString.length === 0) {
             outputTextBlock.textContent = "Please fill in the field";
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (isNaN(parseFloat(celsiusTemperatureString))) {
+        if (isNaN(celsiusTemperature)) {
             outputTextBlock.textContent = "Incorrect input";
             outputTextBlock.classList.add("error-message");
             celsiusTemperatureTextField.classList.add("input-field-error");
@@ -33,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
         outputTextBlock.classList.remove("error-message");
         celsiusTemperatureTextField.classList.remove("input-field-error");
 
-        const celsiusTemperature = parseFloat(celsiusTemperatureString);
         outputTextBlock.textContent = celsiusTemperatureString +
             " °Celsius = " +
             convertCelsiusToKelvin(celsiusTemperature).toFixed(3) +
