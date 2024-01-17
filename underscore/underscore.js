@@ -13,20 +13,22 @@
         {age: 12, name: "Jack"},
         {age: 23, name: "Alex"}
     ];
+
     console.log("Average age of all people:", _.meanBy(people, "age"));
 
     console.log("List of people aged 20 to 30 inclusive, sorted by ascending age:",
         _.chain(people)
             .filter(person => person.age >= 20 && person.age <= 30)
-            .sortBy(["age"])
+            .sortBy("age")
             .value()
     );
 
     console.log("List of unique names of people with ages from 20 to 30 inclusive, sorted in descending order:",
         _.chain(people)
             .filter(person => person.age >= 20 && person.age <= 30)
-            .uniqBy("name")
-            .orderBy("age", "desc")
+            .countBy("name")
+            .map((count, name) => ({name, count}))
+            .sortBy('count').reverse()
             .value()
     );
 
