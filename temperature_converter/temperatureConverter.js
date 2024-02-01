@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         const celsiusTemperatureString = celsiusTemperatureTextField.value;
-        const celsiusTemperature = parseFloat(celsiusTemperatureString);
 
         if (celsiusTemperatureString.length === 0) {
             outputTextBlock.textContent = "Please fill in the field";
@@ -22,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
             celsiusTemperatureTextField.classList.add("input-field-error");
             return;
         }
+
+        const celsiusTemperature = parseFloat(celsiusTemperatureString);
 
         if (isNaN(celsiusTemperature)) {
             outputTextBlock.textContent = "Incorrect input";
