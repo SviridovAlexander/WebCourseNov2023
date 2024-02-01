@@ -59,6 +59,8 @@ body {
 .add-todo-page .todo-list {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    max-width: 90%;
 }
 
 .add-todo-page .todo-item-text,
@@ -103,6 +105,6 @@ body {
     margin: 0 auto;
 }
 
-.add-button{
+.add-button {
     padding: 5px 12px;
 }
