@@ -26,9 +26,9 @@
     console.log("List of unique names of people with ages from 20 to 30 inclusive, sorted in descending order:",
         _.chain(people)
             .filter(person => person.age >= 20 && person.age <= 30)
-            .countBy("name")
-            .map((count, name) => ({name, count}))
-            .sortBy('count').reverse()
+            .map("name")
+            .uniq()
+            .sort()
             .value()
     );
 
