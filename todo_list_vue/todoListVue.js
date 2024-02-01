@@ -11,9 +11,7 @@ Vue.createApp({})
 
         methods: {
             addTodoItem() {
-                const trimmedText = this.newTodoItemText.trim();
-
-                if (trimmedText === "") {
+                if (this.newTodoItemText === "") {
                     this.validationError = "Input cannot be empty";
                     return;
                 }
@@ -22,25 +20,24 @@ Vue.createApp({})
 
                 const newTodoItem = {
                     id: this.newTodoItemId,
-                    text: trimmedText
+                    text: this.newTodoItemText
                 };
 
-                this.newTodoItemId++;
                 this.items.push(newTodoItem);
                 this.newTodoItemText = "";
+                this.newTodoItemId++;
             },
 
             deleteTodoItem(item) {
                 this.items = this.items.filter(x => x !== item);
-
             }
         },
 
         template: `
           <form @submit.prevent="addTodoItem" class="row mb-3">
             <label class="col">
-              <input v-model="newTodoItemText" 
-                     class="form-control" 
+              <input v-model.trim="newTodoItemText"
+                     class="form-control"
                      type="text"
                      :class="{ 'is-invalid': validationError }">
             </label>
@@ -78,9 +75,7 @@ Vue.createApp({})
 
         methods: {
             save() {
-                const trimmedText = this.editingText.trim();
-
-                if (trimmedText === "") {
+                if (this.editingText === "") {
                     this.validationError = "Input cannot be empty";
                     return;
                 }
@@ -88,13 +83,13 @@ Vue.createApp({})
                 this.validationError = null;
 
                 this.isEditing = false;
-                this.$emit("save-item", trimmedText);
+                this.$emit("save-item", this.editingText);
             },
             cancel() {
                 this.isEditing = false;
                 this.editingText = this.item.text;
                 this.validationError = null;
-            },
+            }
         },
 
         template: `
@@ -110,8 +105,8 @@ Vue.createApp({})
             </div>
             <div class="row" v-else>
               <div class="col">
-                <input v-model="editingText" 
-                       @keyup.enter="save" 
+                <input v-model.trim="editingText"
+                       @keyup.enter="save"
                        class="form-control"
                        :class="{ 'is-invalid': validationError }">
               </div>
