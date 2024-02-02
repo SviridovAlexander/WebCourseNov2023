@@ -1,7 +1,7 @@
 body {
-    color: #ffffff;
+    color: #fff;
     background-color: #343333;
-    font-family: "Arial", serif;
+    font-family: Arial, sans-serif;
     font-size: 15px;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 .error {
-    border: 2px solid red;
+    border: 2px solid #f00f;
 }
 
 .phonebook-table-block table {
@@ -47,7 +47,7 @@ body {
 
 .phonebook-table-block td, .phonebook-table-block th {
     border: 1px solid #cfcfcf;
-    padding: 10px 10px;
+    padding: 10px;
 }
 
 .phonebook-table-block {
@@ -56,8 +56,8 @@ body {
 
 .add-contact-button {
     width: 120px;
-    background-color: #04AA6D;
-    color: #ffffff;
+    background-color: #04aa6d;
+    color: #fff;
     padding: 8px 20px;
     margin: 8px 0;
     border: none;
@@ -71,7 +71,8 @@ body {
     margin-top: 20px;
 }
 
-button {
+.add-contact-form button,
+.phonebook-table-block button {
     border-radius: 4px;
     cursor: pointer;
     border: none;
@@ -92,18 +93,18 @@ button {
 }
 
 .apply-filter-button {
-    background-color: #4CAF50;
-    color: #ffffff;
+    background-color: #4caf50;
+    color: #fff;
 }
 
 .edit-contact, .save-contact {
-    background-color: #4CAF50;
-    color: #ffffff;
+    background-color: #4caf50;
+    color: #fff;
 }
 
 .reset-filter-button, .delete-contact, .cancel-edit, .delete-selected-contacts-button {
     background-color: #f44336;
-    color: #ffffff;
+    color: #fff;
     border: none;
     margin-left: 5px;
 }

@@ -1,0 +1,15 @@
+{
+  "name": "phone_book_jquery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "phoneBook.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.13.2"
+  }
+}
