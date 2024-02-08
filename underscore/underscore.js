@@ -29,6 +29,7 @@
             .map("name")
             .uniq()
             .sort()
+            .reverse()
             .value()
     );
 
