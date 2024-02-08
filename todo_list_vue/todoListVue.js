@@ -34,7 +34,7 @@ Vue.createApp({})
         },
 
         template: `
-          <form @submit.prevent="addTodoItem" class="row mb-3">
+          <form @submit.prevent="addTodoItem" class="row">
             <label class="col">
               <input v-model.trim="newTodoItemText"
                      class="form-control"
@@ -44,12 +44,13 @@ Vue.createApp({})
             <div class="col-auto">
               <button class="btn btn-primary">Add</button>
             </div>
-            <div v-if="validationError" class="row ms-1 invalid-feedback d-block">
-              {{ validationError }}
-            </div>
           </form>
-
-          <ul class="list-unstyled">
+          <div class="row">
+          <div v-if="validationError" class="col invalid-feedback d-block">
+            {{ validationError }}
+          </div>
+          </div>
+          <ul class="list-unstyled mt-4">
             <todo-list-item v-for="item in items"
                             :key="item.id"
                             :item="item"
@@ -61,7 +62,7 @@ Vue.createApp({})
         props: {
             item: {
                 type: Object,
-                required: true,
+                required: true
             }
         },
 
@@ -115,7 +116,7 @@ Vue.createApp({})
                 <button @click="save" class="btn btn-primary" type="button">Save</button>
               </div>
             </div>
-            <div v-if="validationError" class="row ms-1 invalid-feedback d-block">
+            <div v-if="validationError" class="ms-1 invalid-feedback d-block">
               {{ validationError }}
             </div>
           </li>`
