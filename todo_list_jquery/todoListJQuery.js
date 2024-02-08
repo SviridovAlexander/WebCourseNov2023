@@ -40,7 +40,7 @@ $(function () {
                     setViewMode();
                 });
 
-                $(".save-button").click(function () {
+                newTodo.find(".save-button").click(function () {
                     saveChanges();
                 });
 
@@ -54,8 +54,8 @@ $(function () {
                     const changedTodoText = editTextField.val().trim();
 
                     if (changedTodoText.length === 0) {
-                        $(".edit-error-message-block").addClass("invalid");
-                        $(".edit-text-field").addClass("invalid");
+                        newTodo.find(".edit-error-message-block").addClass("invalid");
+                        editTextField.addClass("invalid");
                         return;
                     }
 
