@@ -2,13 +2,14 @@ $(function () {
     let contacts = [];
     let selectedRowsIndices = [];
     const contactsTable = $(".contacts-table-body");
-    const phoneNumberFormBlock = $("#phone-number");
-    const lastNameFormBlock = $("#last-name");
-    const firstNameFormBlock = $("#first-name");
+    const phoneNumberField = $("#phone-number");
+    const lastNameField = $("#last-name");
+    const firstNameField = $("#first-name");
 
     function validateForm() {
         let isValid = true;
         const fieldIds = ["last-name", "first-name", "phone-number"];
+        const phoneNumber = phoneNumberField.val().trim();
 
         for (const fieldId of fieldIds) {
             const currentField = $("#" + fieldId);
@@ -16,9 +17,15 @@ $(function () {
 
             if (value === "") {
                 currentField.addClass("error");
-                currentField.after(`<p class="validation-message">Please fill out the field.</p>`);
+                currentField.after(`<p class="error-text validation-message-form">Please fill out the field.</p>`);
                 isValid = false;
             }
+        }
+
+        if (contacts.some(contact => contact.phoneNumber === phoneNumber)) {
+            phoneNumberField.addClass("error");
+            phoneNumberField.after(`<p class="error-text validation-message-form-phone">Contact with this phone number already exists.</p>`);
+            isValid = false;
         }
 
         return isValid;
@@ -44,9 +51,7 @@ $(function () {
                 newContacts.push(contacts[i]);
             } else {
                 const selectedRow = $(`#row-index-${i}`);
-                if (selectedRow.is(":visible")) {
-                    selectedRow.remove();
-                }
+                selectedRow.remove();
             }
         }
 
@@ -57,20 +62,14 @@ $(function () {
         e.preventDefault();
 
         $("form input").removeClass("error");
-        $(".add-contact-form .validation-message").remove();
+        $(".add-contact-form .validation-message-form, .validation-message-form-phone").remove();
 
         if (validateForm()) {
-            const lastName = lastNameFormBlock.val().trim();
-            const firstName = firstNameFormBlock.val().trim();
-            const phoneNumber = phoneNumberFormBlock.val().trim();
+            const lastName = lastNameField.val().trim();
+            const firstName = firstNameField.val().trim();
+            const phoneNumber = phoneNumberField.val().trim();
 
-            if (contacts.find(contact => contact.phoneNumber === phoneNumber)) {
-                phoneNumberFormBlock.addClass("error");
-                phoneNumberFormBlock.after(`<p class="validation-message">Contact with this phone number already exists.</p>`);
-                return;
-            }
-
-           // $("#last-name, #first-name, #phone-number").val("");
+            $("#last-name, #first-name, #phone-number").val("");
 
             contactsTable.append(createContactRow(contacts, lastName, firstName, phoneNumber, contacts.length));
             contacts.push({lastName, firstName, phoneNumber});
@@ -124,17 +123,17 @@ $(function () {
 
         const contactToEdit = contacts[editIndex];
         const editedRow = `
-        <tr id="row-index-${editIndex}">
-            <td><input type="checkbox" class="select-row" data-index="${editIndex}" /></td>
-            <td class="contact-number">${editIndex + 1}</td>
-            <td><input type="text" class="edit-field" id="edit-last-name-${editIndex}" value="${contactToEdit.lastName}" /></td>
-            <td><input type="text" class="edit-field" id="edit-first-name-${editIndex}" value="${contactToEdit.firstName}" /></td>
-            <td><input type="text" class="edit-field" id="edit-phone-number-${editIndex}" value="${contactToEdit.phoneNumber}" /></td>
-            <td>
-                <button class="cancel-edit" data-index="${editIndex}">Cancel</button>
-                <button class="save-contact" data-index="${editIndex}">Save</button>
-            </td>
-        </tr>`;
+            <tr id="row-index-${editIndex}">
+                <td><input type="checkbox" class="select-row" data-index="${editIndex}" /></td>
+                <td class="contact-number">${editIndex + 1}</td>
+                <td><input type="text" class="edit-field" id="edit-last-name-${editIndex}" value="${contactToEdit.lastName}" /></td>
+                <td><input type="text" class="edit-field" id="edit-first-name-${editIndex}" value="${contactToEdit.firstName}" /></td>
+                <td><input type="text" class="edit-field" id="edit-phone-number-${editIndex}" value="${contactToEdit.phoneNumber}" /></td>
+                <td>
+                    <button class="cancel-edit danger-button" data-index="${editIndex}">Cancel</button>
+                    <button class="save-contact" data-index="${editIndex}">Save</button>
+                </td>
+            </tr>`;
 
         $(`#row-index-${editIndex}`).replaceWith(editedRow);
     });
@@ -149,7 +148,7 @@ $(function () {
                 <td>${contacts[index].firstName}</td>
                 <td>${contacts[index].phoneNumber}</td>
                 <td>
-                    <button class="delete-contact" data-index="${index}">Delete</button>
+                    <button class="delete-contact danger-button" data-index="${index}">Delete</button>
                     <button class="edit-contact" data-index="${index}">Edit</button>
                 </td>
             </tr>`;
@@ -158,36 +157,40 @@ $(function () {
     });
 
     $(document).on("click", ".save-contact", function () {
+        let isValid = true;
         const index = $(this).data("index");
         const lastName = $(`#edit-last-name-${index}`).val().trim();
         const firstName = $(`#edit-first-name-${index}`).val().trim();
-        const phoneNumberBlock = $(`#edit-phone-number-${index}`);
-        const phoneNumber = phoneNumberBlock.val().trim();
-        const editFieldBlock = $(`#row-index-${index} .edit-field`);
+        const phoneNumberField = $(`#edit-phone-number-${index}`);
+        const phoneNumber = phoneNumberField.val().trim();
+        const editField = $(`#row-index-${index} .edit-field`);
 
-        $(`#row-index-${index} .validation-message`).remove();
-        editFieldBlock.removeClass("error");
+        $(`#row-index-${index} .error-text`).remove();
+        editField.removeClass("error");
 
         if (!lastName || !firstName || !phoneNumber) {
-            editFieldBlock.each(function () {
+            editField.each(function () {
                 const value = $(this).val().trim();
                 if (!value) {
                     $(this).addClass("error");
-                    $(this).after(`<p class="validation-message">Please fill out the field.</p>`);
+                    $(this).after(`<p class="error-text">Please fill out the field.</p>`);
+                    isValid = false;
                 }
             });
-
-            return;
         }
 
         if (contacts.some(contact => contact.phoneNumber === phoneNumber && contacts.indexOf(contact) !== index)) {
-            phoneNumberBlock.addClass("error");
-            phoneNumberBlock.after(`<p class="validation-message">Contact with this phone number already exists.</p>`);
+            phoneNumberField.addClass("error");
+            phoneNumberField.after(`<p class="error-text">Contact with this phone number already exists.</p>`);
+            isValid = false;
+        }
+
+        if (!isValid) {
             return;
         }
 
         $(`#row-index-${index}`).replaceWith(createContactRow(contacts, lastName, firstName, phoneNumber, index));
-        contacts[index] = { lastName, firstName, phoneNumber };
+        contacts[index] = {lastName, firstName, phoneNumber};
     });
 
     $(document).on("change", ".select-row", function () {
@@ -212,7 +215,7 @@ $(function () {
 
         contactsTable.find("tr").each(function () {
             const row = $(this);
-            const rowText = row.text().toLowerCase();
+            const rowText = row.find("td:gt(1):lt(3)").text().toLowerCase();
             const isRowContainsFilteredText = rowText.includes(filterText);
 
             if (isRowContainsFilteredText) {
@@ -220,10 +223,11 @@ $(function () {
                 return;
             }
 
-            const isRowBeingEdited = row.find(".edit-field").length > 0;
+            const editFields = row.find(".edit-field");
+            const isRowBeingEdited = editFields.length > 0;
 
             if (isRowBeingEdited) {
-                const editedValuesMatchFilter = row.find(".edit-field").filter(function () {
+                const editedValuesMatchFilter = editFields.filter(function () {
                     return $(this).val().toLowerCase().includes(filterText);
                 }).length > 0;
 
@@ -243,29 +247,29 @@ $(function () {
     });
 
     function createContactRow(contacts, lastName, firstName, phoneNumber, index) {
-        const $row = $('<tr>').attr('id', `row-index-${index}`);
+        const row = $("<tr>").attr("id", `row-index-${index}`);
 
-        $('<td>').append(
-            $('<input>').attr({
-                type: 'checkbox',
-                class: 'select-row',
-                'data-index': index
+        $("<td>").append(
+            $("<input>").attr({
+                type: "checkbox",
+                class: "select-row",
+                "data-index": index
             })
-        ).appendTo($row);
+        ).appendTo(row);
 
-        $('<td>').addClass('contact-number').text(index + 1).appendTo($row);
+        $("<td>").addClass("contact-number").text(index + 1).appendTo(row);
 
-        $('<td>').text(lastName).appendTo($row);
-        $('<td>').text(firstName).appendTo($row);
-        $('<td>').text(phoneNumber).appendTo($row);
+        $("<td>").text(lastName).appendTo(row);
+        $("<td>").text(firstName).appendTo(row);
+        $("<td>").text(phoneNumber).appendTo(row);
 
-        $('<td>').append(
-            $('<button>').addClass('delete-contact').attr('data-index', index).text('Delete'),
-            $('<button>').addClass('edit-contact').attr('data-index', index).text('Edit')
-        ).appendTo($row);
+        $("<td>").append(
+            $("<button>").addClass("delete-contact danger-button").attr("data-index", index).text("Delete"),
+            $("<button>").addClass("edit-contact").attr("data-index", index).text("Edit")
+        ).appendTo(row);
 
-        $('#your-table-id').append($row);
+        $("#your-table-id").append(row);
 
-        return $row;
+        return row;
     }
 });

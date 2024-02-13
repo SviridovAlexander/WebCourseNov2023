@@ -14,17 +14,13 @@
 <h1 class="header">Phone Book</h1>
 <div>
     <form class="add-contact-form">
-        <div>
+        <div class="inputs-block">
             <label>
                 Last Name: <input type="text" id="last-name" class="form-field" tabindex="1">
             </label>
-        </div>
-        <div>
             <label>
                 First Name: <input type="text" id="first-name" class="form-field" tabindex="2">
             </label>
-        </div>
-        <div>
             <label class="phone-number-block">
                 Phone Number: <input type="text" id="phone-number" class="form-field" tabindex="3">
             </label>
@@ -36,12 +32,14 @@
 <div class="phonebook-table-block">
     <div class="phonebook-filter">
         <label for="filter">Filter:</label>
-        <input type="text" id="filter"/>
+        <input class="filter-input" type="text" id="filter"/>
         <button class="apply-filter-button" id="apply-filter">Apply Filter</button>
-        <button class="reset-filter-button" id="reset-filter">Reset Filter</button>
+        <button class="reset-filter-button danger-button" id="reset-filter">Reset Filter</button>
     </div>
     <div class="delete-selected-contacts-block">
-        <button class="delete-selected-contacts-button" id="delete-selected-rows">Delete all selected contacts</button>
+        <button class="delete-selected-contacts-button danger-button" id="delete-selected-rows">Delete all selected
+            contacts
+        </button>
     </div>
     <table class="contact-table">
         <thead>
