@@ -1,19 +1,18 @@
 <template>
-    <div ref="deleteModal" class="modal fade" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div ref="errorModal" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">
-                        <slot name="header"></slot>
-                    </h1>
+                    <h5 class="modal-title">
+                        <span>Error</span>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <slot name="body"></slot>
+                    {{errorMessage}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button @click="onOk" type="button" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
@@ -24,9 +23,7 @@
 import {Modal} from "bootstrap";
 
 export default {
-    emits: ['deleteContact', 'deleteSelectedContacts'],
-
-    name: "DeleteContactModal",
+    name: "ErrorModal",
 
     data() {
         return {
@@ -34,8 +31,12 @@ export default {
         };
     },
 
+    props:{
+        errorMessage: String
+    },
+
     mounted() {
-        this.modal = new Modal(this.$refs.deleteModal, {});
+        this.modal = new Modal(this.$refs.errorModal, {});
     },
 
     methods: {
@@ -46,10 +47,6 @@ export default {
         hide() {
             this.modal.hide();
         },
-
-        onOk() {
-            this.$emit("ok");
-        }
     }
-};
+}
 </script>

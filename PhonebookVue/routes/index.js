@@ -71,18 +71,35 @@ router.post("/api/contacts", function (req, res) {
 });
 
 router.put("/api/contacts/:id", function (req, res) {
-   // const id = Number(req.params.id);
     const updatedContact = {
         id: req.body.id,
         name: req.body.name,
         phone: req.body.phone
     };
 
-    if (!updatedContact.name || !updatedContact.phone) {
+    if (!updatedContact.name && !updatedContact.phone) {
         res.send({
             success: false,
             message: "Both contact name and phone number are required for update"
         });
+        return;
+    }
+
+    if (!updatedContact.name) {
+        res.send({
+            success: false,
+            message: "You must specify a contact name"
+        });
+
+        return;
+    }
+
+    if (!updatedContact.phone) {
+        res.send({
+            success: false,
+            message: "You must specify a contact phone number"
+        });
+
         return;
     }
 
@@ -95,7 +112,8 @@ router.put("/api/contacts/:id", function (req, res) {
         return;
     }
 
-    const isPhoneNumberTaken = contacts.some(c => c.id !== updatedContact.id && c.phone === updatedContact.phone);
+    const isPhoneNumberTaken = contacts.some(c => c.id !== updatedContact.id
+        && c.phone.toLowerCase() === updatedContact.phone.toLowerCase());
     if (isPhoneNumberTaken) {
         res.send({
             success: false,
@@ -104,7 +122,6 @@ router.put("/api/contacts/:id", function (req, res) {
         return;
     }
 
-    // Update the contact details
     existingContact.name = updatedContact.name;
     existingContact.phone = updatedContact.phone;
 

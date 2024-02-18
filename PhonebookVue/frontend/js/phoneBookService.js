@@ -10,6 +10,10 @@ function executePost(url, data) {
     return axios.post(url, data).then(response => response.data);
 }
 
+function executePut(url, data) {
+    return axios.put(url, data).then(response => response.data);
+}
+
 function executeDelete(url) {
     return axios.delete(url).then(response => response.data);
 }
@@ -32,7 +36,6 @@ export default class PhoneBookService {
     }
 
     updateContact(updatedContact) {
-        const url = `${this.baseUrl}/${updatedContact.id}`;
-        return axios.put(url, updatedContact).then(response => response.data);
+        return executePut(`${this.baseUrl}/${updatedContact.id}`, updatedContact);
     }
 };
