@@ -5,19 +5,19 @@ $(function () {
     const phoneNumberField = $("#phone-number");
     const lastNameField = $("#last-name");
     const firstNameField = $("#first-name");
+    const filterField = $("#filter")
 
     function validateForm() {
         let isValid = true;
-        const fieldIds = ["last-name", "first-name", "phone-number"];
+        const fields = [lastNameField, firstNameField, phoneNumberField];
         const phoneNumber = phoneNumberField.val().trim();
 
-        for (const fieldId of fieldIds) {
-            const currentField = $("#" + fieldId);
-            const value = currentField.val().trim();
+        for (const field of fields) {
+            const value = field.val().trim();
 
             if (value === "") {
-                currentField.addClass("error");
-                currentField.after(`<p class="error-text validation-message-form">Please fill out the field.</p>`);
+                field.addClass("error");
+                field.after(`<p class="error-text validation-message-form">Please fill out the field.</p>`);
                 isValid = false;
             }
         }
@@ -31,10 +31,10 @@ $(function () {
         return isValid;
     }
 
-    function updateRowIndices() {
-        const remainingRows = contactsTable.children();
+    function updateRowsIndices() {
+        const rows = contactsTable.children();
 
-        remainingRows.each(function (i) {
+        rows.each(function (i) {
             const currentRow = $(this);
 
             currentRow.find(".contact-number").text(i + 1);
@@ -47,10 +47,12 @@ $(function () {
         const newContacts = [];
 
         for (let i = 0; i < contacts.length; i++) {
-            if (!rowsIndicesToDelete.includes(i)) {
+            const selectedRow = $(`#row-index-${i}`);
+
+            if (!rowsIndicesToDelete.includes(i) || !selectedRow.is(":visible")) {
                 newContacts.push(contacts[i]);
             } else {
-                const selectedRow = $(`#row-index-${i}`);
+                selectedRowsIndices.splice(selectedRowsIndices.indexOf(i), 1);
                 selectedRow.remove();
             }
         }
@@ -61,7 +63,7 @@ $(function () {
     $(".add-contact-form").submit(function (e) {
         e.preventDefault();
 
-        $("form input").removeClass("error");
+        $(".add-contact-form input").removeClass("error");
         $(".add-contact-form .validation-message-form, .validation-message-form-phone").remove();
 
         if (validateForm()) {
@@ -69,7 +71,9 @@ $(function () {
             const firstName = firstNameField.val().trim();
             const phoneNumber = phoneNumberField.val().trim();
 
-            $("#last-name, #first-name, #phone-number").val("");
+             lastNameField.val("");
+             firstNameField.val("");
+             phoneNumberField.val("");
 
             contactsTable.append(createContactRow(contacts, lastName, firstName, phoneNumber, contacts.length));
             contacts.push({lastName, firstName, phoneNumber});
@@ -101,10 +105,16 @@ $(function () {
             const deletedRow = $(`#row-index-${index}`);
             deletedRow.remove();
             contacts.splice(index, 1);
-            selectedRowsIndices = selectedRowsIndices
-                .filter(rowIndex => rowIndex !== index)
-                .map(rowIndex => rowIndex - 1);
-            updateRowIndices();
+
+            selectedRowsIndices = selectedRowsIndices.filter(rowIndex => rowIndex !== index);
+
+            for (let i = 0; i < selectedRowsIndices.length; i++) {
+                if (selectedRowsIndices[i] > index) {
+                    selectedRowsIndices[i] = selectedRowsIndices[i] - 1;
+                }
+            }
+
+            updateRowsIndices();
         });
     });
 
@@ -112,8 +122,7 @@ $(function () {
         if (selectedRowsIndices.length > 0) {
             showConfirmationDialog(function () {
                 deleteRows(selectedRowsIndices);
-                selectedRowsIndices = [];
-                updateRowIndices();
+                updateRowsIndices();
             });
         }
     });
@@ -210,7 +219,7 @@ $(function () {
     });
 
     $("#apply-filter").click(function () {
-        const filterText = $("#filter").val().toLowerCase();
+        const filterText = filterField.val().trim().toLowerCase();
         const contactsTable = $(".contacts-table-body");
 
         contactsTable.find("tr").each(function () {
@@ -242,7 +251,7 @@ $(function () {
     });
 
     $("#reset-filter").click(function () {
-        $("#filter").val("");
+        filterField.val("");
         contactsTable.find("tr").show();
     });
 
@@ -267,8 +276,6 @@ $(function () {
             $("<button>").addClass("delete-contact danger-button").attr("data-index", index).text("Delete"),
             $("<button>").addClass("edit-contact").attr("data-index", index).text("Edit")
         ).appendTo(row);
-
-        $("#your-table-id").append(row);
 
         return row;
     }

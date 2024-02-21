@@ -178,3 +178,10 @@ body {
 .filter-input {
     width: 300px;
 }
+
+@media screen and (max-width: 642px) {
+    .delete-contact {
+        margin-bottom: 5px;
+
+    }
+}
